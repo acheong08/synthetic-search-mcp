@@ -1,12 +1,16 @@
 {
 	"name": "synthetic-search-mcp",
-	"version": "1.0.0",
-	"module": "index.ts",
+	"version": "0.1.0",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"type": "module",
 	"bin": {
-		"synthetic-search-mcp": "./index.ts"
+		"synthetic-search-mcp": "./dist/index.js"
 	},
 	"scripts": {
+		"build": "bunx tsc",
+		"prepublishOnly": "bun run build",
 		"start": "bun run index.ts"
 	},
 	"devDependencies": {
@@ -18,14 +22,10 @@
 		"zod": "^4.3.6"
 	},
 	"files": [
-		"index.ts",
-		"tsconfig.json"
+		"dist"
 	],
 	"keywords": ["mcp", "search", "synthetic"],
 	"description": "MCP server for Synthetic Search API",
-	"repository": {
-		"type": "git"
-	},
 	"publishConfig": {
 		"access": "public"
 	}

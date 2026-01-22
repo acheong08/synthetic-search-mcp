@@ -10,9 +10,12 @@
 		"allowSyntheticDefaultImports": true,
 		"forceConsistentCasingInFileNames": true,
 		"moduleDetection": "force",
-		"allowImportingTsExtensions": true,
-		"noEmit": true,
-		"resolveJsonModule": true
+		"outDir": "dist",
+		"declaration": true,
+		"declarationDir": "dist",
+		"resolveJsonModule": true,
+		"noEmit": false
 	},
-	"include": ["index.ts"]
+	"include": ["index.ts"],
+	"exclude": ["node_modules", "dist"]
 }
