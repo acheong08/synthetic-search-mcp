@@ -1,12 +1,12 @@
 {
 	"name": "synthetic-search-mcp",
-	"version": "0.1.3",
+	"version": "0.1.6",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"type": "module",
 	"bin": {
-		"synthetic-search-mcp": "./dist/index.js"
+		"synthetic-search-mcp": "./bin/index.js"
 	},
 	"scripts": {
 		"build": "bun build index.ts --outfile dist/index.js --target node --sourcemap=inline",
@@ -25,7 +25,8 @@
 		"zod": "^4.3.6"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"bin"
 	],
 	"keywords": [
 		"mcp",
