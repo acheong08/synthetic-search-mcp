@@ -1,40 +1,19 @@
 # Synthetic Search MCP
 
-Model Context Protocol server for Synthetic Search API.
+Model Context Protocol server for Synthetic Search API. For my personal use.
 
-## Installation
-
-```bash
-bunx -y @synthetic/search-mcp
-```
-
-Or install globally:
-
-```bash
-bun install -g @synthetic/search-mcp
-```
-
-## Configuration
-
-Set the `SYNTHETIC_API_KEY` environment variable:
-
-```bash
-export SYNTHETIC_API_KEY="your_api_key_here"
-```
-
-## Usage with Claude Desktop
-
-Add to your Claude Desktop configuration:
+## OpenCode config
 
 ```json
 {
-  "mcpServers": {
-    "synthetic-search": {
-      "command": "bunx",
-      "args": ["-y", "@synthetic/search-mcp"],
-      "env": {
-        "SYNTHETIC_API_KEY": "your_api_key_here"
-      }
+  "mcp": {
+    "synthetic-web-search": {
+      "type": "local",
+      "command": ["bunx", "-y", "synthetic-search-mcp"],
+      "environment": {
+        "SYNTHETIC_API_KEY": "<placeholder>"
+      },
+      "enabled": true
     }
   }
 }
