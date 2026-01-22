@@ -1,16 +1,32 @@
 {
-  "name": "synthetic-search-mcp",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.25.3",
-    "zod": "^4.3.6"
-  }
+	"name": "synthetic-search-mcp",
+	"version": "1.0.0",
+	"module": "index.ts",
+	"type": "module",
+	"bin": {
+		"synthetic-search-mcp": "./index.ts"
+	},
+	"scripts": {
+		"start": "bun run index.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "^1.25.3",
+		"zod": "^4.3.6"
+	},
+	"files": [
+		"index.ts",
+		"tsconfig.json"
+	],
+	"keywords": ["mcp", "search", "synthetic"],
+	"description": "MCP server for Synthetic Search API",
+	"repository": {
+		"type": "git"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }
