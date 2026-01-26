@@ -1,40 +1,40 @@
 {
-	"name": "synthetic-search-mcp",
-	"version": "0.1.6",
-	"main": "dist/index.js",
-	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
-	"type": "module",
-	"bin": {
-		"synthetic-search-mcp": "./bin/index.js"
-	},
-	"scripts": {
-		"build": "bun build index.ts --outfile dist/index.js --target node --sourcemap=inline",
-		"prepublishOnly": "bun run build",
-		"start": "bun run index.ts"
-	},
-	"devDependencies": {
-		"@types/bun": "latest",
-		"typescript": "^5"
-	},
-	"trustedDependencies": [
-		"@biomejs/biome"
-	],
-	"dependencies": {
-		"@modelcontextprotocol/sdk": "^1.25.3",
-		"zod": "^4.3.6"
-	},
-	"files": [
-		"dist",
-		"bin"
-	],
-	"keywords": [
-		"mcp",
-		"search",
-		"synthetic"
-	],
-	"description": "MCP server for Synthetic Search API",
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "synthetic-search-mcp",
+  "version": "0.2.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "bin": {
+    "synthetic-search-mcp": "./bin/index.js"
+  },
+  "scripts": {
+    "build": "bun build index.ts --outfile dist/index.js --target node --sourcemap=inline",
+    "prepublishOnly": "bun run build",
+    "start": "bun run index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  },
+  "trustedDependencies": [
+    "@biomejs/biome"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.3",
+    "zod": "^4.3.6"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "keywords": [
+    "mcp",
+    "search",
+    "synthetic"
+  ],
+  "description": "MCP server for Synthetic Search API",
+  "publishConfig": {
+    "access": "public"
+  }
 }

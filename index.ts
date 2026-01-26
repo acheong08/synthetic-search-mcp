@@ -15,6 +15,8 @@ interface SearchApiResponse {
 
 const searchParamsSchema = z.object({
 	query: z.string().max(400).describe("Search query (max 400 chars)"),
+	max_length: z.number().int().min(0).max(10000).optional().default(0).describe("Maximum total characters across all results (0 = no limit)"),
+	index: z.number().int().min(0).optional().describe("Return only the result at this index (0-based)"),
 });
 
 const searchResultsSchema = z.array(
@@ -42,7 +44,8 @@ server.registerTool(
 	"search",
 	{
 		title: "Search the web",
-		description: "Search using Synthetic Search API",
+		description:
+			"Uses a search engine which returns title, url, and content in markdown",
 		inputSchema: searchParamsSchema,
 	},
 	async (params) => {
@@ -82,7 +85,8 @@ server.registerTool(
 				};
 			}
 
-			const data = (await response.json()) as SearchApiResponse;
+			const data =
+				(await response.json()) as SearchApiResponse;
 			const results = searchResultsSchema.parse(data.results);
 
 			if (results.length === 0) {
@@ -96,10 +100,37 @@ server.registerTool(
 				};
 			}
 
+			let selectedResults = results;
+			
+			if (params.index !== undefined) {
+				if (params.index >= results.length) {
+					return {
+						content: [
+							{
+								type: "text" as const,
+								text: `Error: Index ${params.index} is out of range (only ${results.length} results available)`,
+							},
+						],
+						isError: true,
+					};
+				}
+				selectedResults = [results[params.index]];
+			}
+
+			const truncate = (text: string, maxLength: number) => {
+				if (maxLength <= 0) return text;
+				return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+			};
+
+			let charsPerResult = Infinity;
+			if (params.max_length && params.max_length > 0 && selectedResults.length > 0) {
+				charsPerResult = Math.floor(params.max_length / selectedResults.length);
+			}
+
 			return {
-				content: results.map((result) => ({
+				content: selectedResults.map((result) => ({
 					type: "text" as const,
-					text: `Title: ${result.title}\nURL: ${result.url}\n${result.text}\n${result.published ? `Published: ${result.published}` : ""}`,
+					text: `Title: ${result.title}\nURL: ${result.url}\n${truncate(result.text, charsPerResult)}\n${result.published ? `Published: ${result.published}` : ""}`,
 				})),
 			};
 		} catch (error) {
