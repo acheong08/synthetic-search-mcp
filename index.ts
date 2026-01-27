@@ -62,7 +62,12 @@ server.registerTool(
 			};
 		}
 
+		const timeoutMs = parseInt(process.env.SYNTHETIC_TIMEOUT_MS || "30000");
+		
 		try {
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
 			const response = await fetch(API_ENDPOINT, {
 				method: "POST",
 				headers: {
@@ -70,7 +75,10 @@ server.registerTool(
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ query: params.query }),
+				signal: controller.signal,
 			});
+
+			clearTimeout(timeoutId);
 
 			if (!response.ok) {
 				const errorText = await response.text();
@@ -134,11 +142,17 @@ server.registerTool(
 				})),
 			};
 		} catch (error) {
+			let errorMessage = error instanceof Error ? error.message : String(error);
+			
+			if (error instanceof Error && error.name === "AbortError") {
+				errorMessage = `Request timeout after ${timeoutMs}ms`;
+			}
+			
 			return {
 				content: [
 					{
 						type: "text" as const,
-						text: `Search failed: ${error instanceof Error ? error.message : String(error)}`,
+						text: `Search failed: ${errorMessage}`,
 					},
 				],
 				isError: true,
