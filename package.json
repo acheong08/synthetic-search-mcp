@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "bin": {
-    "synthetic-search-mcp": "./bin/index.js"
+    "synthetic-search-mcp": "bin/index.js"
   },
   "scripts": {
     "build": "bun build index.ts --outfile dist/index.js --target node --sourcemap=inline",
